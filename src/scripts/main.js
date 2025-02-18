@@ -1,6 +1,6 @@
 'use strict';
 
-function getEmployeeData() {
+function getEmployees() {
   const employees = [];
   const listItems = document.querySelectorAll('ul li');
 
@@ -24,10 +24,24 @@ function getEmployeeData() {
   return employees;
 }
 
-function sortEmployees() {
-  const employees = getEmployeeData();
+function sortList() {
+  const employees = getEmployees();
+  const sortedList = employees.sort((a, b) => b.salary - a.salary);
+  const list = document.querySelector('ul');
 
-  return employees.sort((a, b) => b.salary - a.salary);
+  list.innerHTML = '';
+
+  sortedList.forEach((employee) => {
+    const li = document.createElement('li');
+
+    li.textContent = employee.employeeName;
+    li.setAttribute('data-position', employee.position);
+    li.setAttribute('data-salary', employee.salary);
+    li.setAttribute('data-age', employee.age);
+
+    list.appendChild(li);
+  });
 }
 
-sortEmployees();
+getEmployees();
+sortList();
